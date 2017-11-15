@@ -73,3 +73,28 @@ localhost:logs liuhuichao$ tail -f esbp-battery-admin.log |grep /auth/login
 localhost:logs liuhuichao$ tail -f esbp-battery-admin.log |grep AuthServiceImpl_login
 2017-11-15 15:24:52,734 [http-nio-8888-exec-2] DEBUG c.w.e.b.a.a.s.AuthServiceImpl [AuthServiceImpl.java:66] AuthServiceImpl_login [/auth/login] 用户登陆，根据用户名查询到用户:{"accountNonExpired":true,"accountNonLocked":true,"authorities":[{"authority":"ADMIN"}],"credentialsNonExpired":true,"enabled":true,"password":"1","username":"1"}
 ```
+# 前端打印日志
+对于前端需要打印的日志，主要也是请求应答数据。
+```
+console.log("日志信息");
+console.info("一般信息");
+console.debug("调试信息");
+console.warn("警告提示");
+console.error("错误提示");
+```
+例如：
+```
+      debugger
+      console.debug("login_loginSucceed:"+JSON.stringify(response));
+```
+
+login为模块名称，loginSucceed为方法名称。
+
+打印错误：
+```
+        debugger
+        console.error("login_doLogin:"+JSON.stringify(err));
+```
+
+建议特别容易处错误的地方，打印之前，都先跟一个debugger,
+这样，当线上除了问题的时候，重新发起请求，即可获得请求的结果，不需要重新去找代码，加断点。
