@@ -35,13 +35,13 @@ throw new MyException();//视需要而定
 例如，请求参数：
 ```
     if(logger.isInfoEnabled()){
-        logger.info("AuthorizeController_login /auth/login 用户登陆:"+JSONObject.toJSONString(authenticationRequest));
+        logger.info("AuthorizeController_login [/auth/login] 用户登陆:"+JSONObject.toJSONString(authenticationRequest));
     }
 ```
 回复信息：
 ```
     if(logger.isInfoEnabled()){
-        logger.info("AuthorizeController_login /auth/login 用户获取token:"+JSONObject.toJSONString(authorizeTokenReponse));
+        logger.info("AuthorizeController_login [/auth/login] 用户获取token:"+JSONObject.toJSONString(authorizeTokenReponse));
     }
 ```
 # Service
@@ -50,7 +50,7 @@ throw new MyException();//视需要而定
        // Reload password post-security so we can generate token
        final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if(logger.isDebugEnabled()){
-            logger.debug("AuthServiceImpl_login /auth/login 用户登陆，根据用户名查询到用户:"+ JSONObject.toJSONString(userDetails));
+            logger.debug("AuthServiceImpl_login [/auth/login] 用户登陆，根据用户名查询到用户:"+ JSONObject.toJSONString(userDetails));
         }
 ```
 - 在service方法中，由于我们经常会进行一些http调用，RPC调用，这种情况下，我们要着重对远程调用的参数，返回值进行info打印，对异常捕获进行error打印，并着重打印异常发生时候的方法时候的各类重要参数。因为这类调用很容易发生错误，应当尽量多打印信息。
@@ -61,17 +61,13 @@ dao中操作比较单一，主要注意的是传入sql的参数，sql语句的�
 # 示例
 - 根据请求url查询日志：
 ```
-localhost:logs liuhuichao$ tail -f esbp-battery-admin.log | grep /auth/login
-2017-11-15 15:16:34,059 [http-nio-8888-exec-1] INFO  c.w.e.b.a.a.c.AuthorizeController [AuthorizeController.java:48] AuthorizeController_login /auth/login 用户登陆:{"password":"1","username":"1"}
-2017-11-15 15:16:34,079 [http-nio-8888-exec-1] DEBUG c.w.e.b.a.a.s.AuthServiceImpl [AuthServiceImpl.java:66] AuthServiceImpl_login /auth/login 用户登陆，根据用户名查询到用户:{"accountNonExpired":true,"accountNonLocked":true,"authorities":[{"authority":"ADMIN"}],"credentialsNonExpired":true,"enabled":true,"password":"1","username":"1"}
-2017-11-15 15:16:34,363 [http-nio-8888-exec-1] INFO  c.w.e.b.a.a.c.AuthorizeController [AuthorizeController.java:56] AuthorizeController_login /auth/login 用户获取token:{"errorcode":8003,"errorinfo":"登陆成功","token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiY3JlYXRlZCI6MTUxMDczMDE5NDA3OSwiZXhwIjoxNTExMzM0OTk0fQ.VjPjiY0pvaNBvHmX1iwmSqhqKPpMZGC7GGnP6RtwhKbye5NWCqY_pqYQhu8q8jNtpc6eU457QhTG_HYrLGU0oA"}
-2017-11-15 15:19:07,358 [http-nio-8888-exec-3] INFO  c.w.e.b.a.a.c.AuthorizeController [AuthorizeController.java:48] AuthorizeController_login /auth/login 用户登陆:{"password":"1","username":"1"}
-2017-11-15 15:19:07,360 [http-nio-8888-exec-3] DEBUG c.w.e.b.a.a.s.AuthServiceImpl [AuthServiceImpl.java:66] AuthServiceImpl_login /auth/login 用户登陆，根据用户名查询到用户:{"accountNonExpired":true,"accountNonLocked":true,"authorities":[{"authority":"ADMIN"}],"credentialsNonExpired":true,"enabled":true,"password":"1","username":"1"}
-2017-11-15 15:19:07,361 [http-nio-8888-exec-3] INFO  c.w.e.b.a.a.c.AuthorizeController [AuthorizeController.java:56] AuthorizeController_login /auth/login 用户获取token:{"errorcode":8003,"errorinfo":"登陆成功","token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiY3JlYXRlZCI6MTUxMDczMDM0NzM2MCwiZXhwIjoxNTExMzM1MTQ3fQ.Z5nyVpSNAc60_e5KMW7AJf5omDgYBOs3v-rNEfIUpk5zo_qmiGukAzxLrD-vs8NHZAR3rPlrlriLW2ijCxR22g"}
+localhost:logs liuhuichao$ tail -f esbp-battery-admin.log |grep /auth/login
+2017-11-15 15:24:52,711 [http-nio-8888-exec-2] INFO  c.w.e.b.a.a.c.AuthorizeController [AuthorizeController.java:48] AuthorizeController_login [/auth/login] 用户登陆:{"password":"1","username":"1"}
+2017-11-15 15:24:52,734 [http-nio-8888-exec-2] DEBUG c.w.e.b.a.a.s.AuthServiceImpl [AuthServiceImpl.java:66] AuthServiceImpl_login [/auth/login] 用户登陆，根据用户名查询到用户:{"accountNonExpired":true,"accountNonLocked":true,"authorities":[{"authority":"ADMIN"}],"credentialsNonExpired":true,"enabled":true,"password":"1","username":"1"}
+2017-11-15 15:24:53,041 [http-nio-8888-exec-2] INFO  c.w.e.b.a.a.c.AuthorizeController [AuthorizeController.java:56] AuthorizeController_login [/auth/login] 用户获取token:{"errorcode":8003,"errorinfo":"登陆成功","token":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiY3JlYXRlZCI6MTUxMDczMDY5MjczNCwiZXhwIjoxNTExMzM1NDkyfQ.15X6UTlerUliV0qxIs06eWRkqFLzlFD3e8QV_rc7LMdGxQlvsSzsN29JmijNOc5KVQnWkoN5Q9FJ4IhDJtipvw"}
 ```
 - 根据方法查询日志：
 ```
-localhost:logs liuhuichao$ tail -f esbp-battery-admin.log | grep AuthServiceImpl_login
-2017-11-15 15:16:34,079 [http-nio-8888-exec-1] DEBUG c.w.e.b.a.a.s.AuthServiceImpl [AuthServiceImpl.java:66] AuthServiceImpl_login /auth/login 用户登陆，根据用户名查询到用户:{"accountNonExpired":true,"accountNonLocked":true,"authorities":[{"authority":"ADMIN"}],"credentialsNonExpired":true,"enabled":true,"password":"1","username":"1"}
-2017-11-15 15:19:07,360 [http-nio-8888-exec-3] DEBUG c.w.e.b.a.a.s.AuthServiceImpl [AuthServiceImpl.java:66] AuthServiceImpl_login /auth/login 用户登陆，根据用户名查询到用户:{"accountNonExpired":true,"accountNonLocked":true,"authorities":[{"authority":"ADMIN"}],"credentialsNonExpired":true,"enabled":true,"password":"1","username":"1"}
+localhost:logs liuhuichao$ tail -f esbp-battery-admin.log |grep AuthServiceImpl_login
+2017-11-15 15:24:52,734 [http-nio-8888-exec-2] DEBUG c.w.e.b.a.a.s.AuthServiceImpl [AuthServiceImpl.java:66] AuthServiceImpl_login [/auth/login] 用户登陆，根据用户名查询到用户:{"accountNonExpired":true,"accountNonLocked":true,"authorities":[{"authority":"ADMIN"}],"credentialsNonExpired":true,"enabled":true,"password":"1","username":"1"}
 ```
