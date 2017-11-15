@@ -44,6 +44,8 @@ throw new MyException();//视需要而定
         logger.info("AuthorizeController_login [/auth/login] 用户获取token:"+JSONObject.toJSONString(authorizeTokenReponse));
     }
 ```
+总结起来，log的基本信息就是：类名称_方法名称 [请求url] +自定义信息描述+需要输出的信息。
+这里，需要输出的信息建议采用tojson方式，方便获取到这部分内容之后，放到json的格式化工具，就可以很清晰的看到对象的数据。
 # Service
 对于service方法，我们主要需要打印的是一些逻辑操作的中间值，比如我们开发过程中经常打断点监视的一些变量的值，多采用debug基本打印，具体格式如下：
 ```
