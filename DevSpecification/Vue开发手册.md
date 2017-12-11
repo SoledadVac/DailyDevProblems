@@ -9,12 +9,16 @@
 # 参考资料
 - es6 :[es6](http://es6.ruanyifeng.com/)
 - element：[element文档](http://element-cn.eleme.io/#/zh-CN/component/installation)
-- axios: [axios文档]（https://github.com/axios/axios）
+- axios: [axios文档](https://github.com/axios/axios)
 - 科学上网工具：[latern](https://github.com/getlantern/lantern)
 - 调试工具-vue:
+-------
 ![](../Images/vue_chrome_store.jpg)
+-------
 调试方式：
+------
  ![](../Images/vue_debug.jpg)
+-------
 - 前端开发工具：
 -- `sublime`:链接: https://pan.baidu.com/s/1i5cS7cD 密码: 8sc3
 --`atom`;
