@@ -6,7 +6,7 @@
 - vue:axios:用于前端进行http请求
 - vue:routers：用于路由跳转控制
 - es6
-#参考资料
+# 参考资料
 - es6 :[es6](http://es6.ruanyifeng.com/)
 - element：[element文档](http://element-cn.eleme.io/#/zh-CN/component/installation)
 - axios: [axios文档]（https://github.com/axios/axios）
@@ -22,8 +22,12 @@
 
 ## 修改启动端口号
  ![](../Images/vue_dev_port.png)
+
+-------
 ## 修改连接的base url地址
 ![](../Images/vue-axios_base_url.png)
+
+-------
 ##前端配置token认证
 本项目中，除了登陆，其他默认都需要token认证，请在路由配置里面，加入如下代码：
 ```
@@ -32,7 +36,9 @@ meta: {
           },
 ```
 对比：
+------
 ![](../Images/vue_require_auth.png)
+------
 ## 按钮权限配置
 本系统，对系统的权限精确到按钮，前端采用指令判断用户是否含有某个按钮的权限，如果含有此权限，则会在前端页面生成此按钮，如果不含有按钮的操作权限，则默认不显示。
 实现按钮权限控制指令l:
