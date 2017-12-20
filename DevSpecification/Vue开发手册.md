@@ -22,15 +22,16 @@
 - 前端开发工具：
 -- `sublime`:链接: https://pan.baidu.com/s/1i5cS7cD 密码: 8sc3
 --`atom`;
-#npm常用命令
-##vue-cli创建项目
+
+# npm常用命令
+## vue-cli创建项目
 ```
 npm install --global vue-cli
 vue init webpack testvue
 npm install
 npm run dev
 ```
-##项目常用命令
+## 项目常用命令
 ```
 # install dependencies
 npm install
@@ -101,7 +102,7 @@ meta: {
 浏览器本地存储采用sessionstorage，token默认过期时间为7天，用户登陆时候，会默认加载用户权限数据和用户数据，开发中如有使用，请从里面取值；
 
 
-##nginx
+# nginx
 - nginx地址：10.0.1.101
 - 位置：/usr/local/nginx/
 - 访问地址：10.0.1.101:80
@@ -148,7 +149,7 @@ location / {
 
 - 4、浏览器访问http://10.0.1.101/即可
 
-#开发跨域设置
+# 开发跨域设置
 修改`config/index.js`文件：
 ```
 proxyTable: {
@@ -161,7 +162,7 @@ proxyTable: {
       }
 ```
 当访问`http://localhost:8080/batteryhisurl`时候就会自动替换为target；
-#nginx跨域设置
+# nginx跨域设置
 ```
 server {
 	listen 80;
