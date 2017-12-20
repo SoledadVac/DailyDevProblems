@@ -22,6 +22,29 @@
 - 前端开发工具：
 -- `sublime`:链接: https://pan.baidu.com/s/1i5cS7cD 密码: 8sc3
 --`atom`;
+#npm常用命令
+##vue-cli创建项目
+```
+npm install --global vue-cli
+vue init webpack testvue
+npm install
+npm run dev
+```
+##项目常用命令
+```
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
 #前端代码介绍
 
 ## 修改启动端口号
@@ -76,3 +99,94 @@ meta: {
 ## session storage存储内容
 ![](../Images/sessionstorage.png)
 浏览器本地存储采用sessionstorage，token默认过期时间为7天，用户登陆时候，会默认加载用户权限数据和用户数据，开发中如有使用，请从里面取值；
+
+
+##nginx
+- nginx地址：10.0.1.101
+- 位置：/usr/local/nginx/
+- 访问地址：10.0.1.101:80
+
+## 启动
+```
+[root@bj-esbp-mid1 sbin]# ./nginx
+```
+## 查看进程
+```
+[root@bj-esbp-mid1 sbin]# ps -ef | grep nginx  
+root     14982     1  0 14:13 ?        00:00:00 nginx: master process ./nginx
+nobody   14983 14982  0 14:13 ?        00:00:00 nginx: worker process
+root     14989  2421  0 14:16 pts/0    00:00:00 grep nginx
+```
+## 重启
+```
+./nginx -s reload
+```
+# 前端发布
+- 1、npm run build
+
+- 2、把dist里的文件打包上传至服务器
+
+项目部署结构：
+
+/data/www/ESBP_WEB/dist
+|-----index.html
+|-----js
+|-----css
+|-----images
+....
+
+- 3、配置nginx监听80端口：
+编辑 `/usr/local/nginx/conf`下面的`nginx.conf`文件:
+修改访问的默认文件位置：
+
+```
+location / {
+            root   /data/www/ESBP_WEB/dist;
+            index  index.html index.htm;
+        }
+```
+
+- 4、浏览器访问http://10.0.1.101/即可
+
+#开发跨域设置
+修改`config/index.js`文件：
+```
+proxyTable: {
+      '/batteryhisurl': {
+         target: 'https://www.baidu.com',
+         changeOrigin: true,
+         pathRewrite: {
+           '^/batteryhisurl': '' //重写接口，去掉/api
+         }
+      }
+```
+当访问`http://localhost:8080/batteryhisurl`时候就会自动替换为target；
+#nginx跨域设置
+```
+server {
+	listen 80;
+	server_name t8.aicuishou.com;
+	location / {
+		root /data/www/saas_manager_web/dist/;
+    	}
+	location /api {
+		rewrite /api/(.+) /$1 break;
+		add_header Access-Control-Allow-Origin *;
+  		add_header Access-Control-Allow-Headers X-Requested-With;
+  		add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+        	proxy_set_header   X-Real-IP $remote_addr;
+        	proxy_set_header   Host      $http_host;
+        	proxy_pass         http://1.1.1.1:8080;
+    	}
+        location /t4 {
+                rewrite /t4/(.+) /$1 break;
+                add_header Access-Control-Allow-Origin *;
+                add_header Access-Control-Allow-Headers X-Requested-With;
+                add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+                proxy_set_header   X-Real-IP $remote_addr;
+                proxy_set_header   Host      $http_host;
+                proxy_pass         http://2.2.2.2:7080;
+        }
+  }
+```
+本项目中，采用后端跨域方式，前端无需配置，上面提供的两种跨域方式仅供参考。
