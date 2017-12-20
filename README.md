@@ -5,3 +5,5 @@
 2,[how to print log for a developer](https://github.com/SoledadVac/DailyDevProblems/blob/master/DevSpecification/How%20to%20print%20log.md)
 
 3,[how to use vue in my project](https://github.com/SoledadVac/DailyDevProblems/blob/master/DevSpecification/Vue%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C.md)
+
+4,[nginx配置https](https://github.com/SoledadVac/DailyDevProblems/blob/master/DevSpecification/nginx%E9%85%8D%E7%BD%AEhttps.md)
