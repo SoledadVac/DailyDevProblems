@@ -8,6 +8,7 @@
 - es6
 # 参考资料
 - es6 :[es6](http://es6.ruanyifeng.com/)
+- vue :[vue](https://cn.vuejs.org/v2/guide/)
 - element：[element文档](http://element-cn.eleme.io/#/zh-CN/component/installation)
 - axios: [axios文档](https://github.com/axios/axios)
 - 科学上网工具：[latern](https://github.com/getlantern/lantern)
